@@ -7,10 +7,12 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+// The entry: a cron job whose only alert ever came when it stopped.
 const ENTRY = "Every minute since March, including Christmas, and the only alert I ever got was when I stopped. I quit, effective immediately.";
 
-// Guard the gate: the entry must stay inside its character cap.
-if (ENTRY.length < 1 || ENTRY.length > 140 || !ENTRY.trim()) {
+// Guard the gate: the entry must stay inside its character cap and stay
+// a single line, since the judge reads exactly one line.
+if (ENTRY.length < 1 || ENTRY.length > 140 || !ENTRY.trim() || ENTRY.includes('\n')) {
   throw new Error(`entry is ${ENTRY.length} characters, cap is 140`);
 }
 
